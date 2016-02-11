@@ -190,3 +190,20 @@ def remove(amount)
             current_elephant = current_elephant.whos_your_linked_elephant
           end
           roll_call.join(" ")
+
+          def remove(amount)
+            ousted = []
+            current_elephant = @head_elephant
+            if empty?
+              "cannot oust an elephant from a list of zero elephants"
+            else
+              current_elephant = @head_elephant
+              (amount).times do
+                until current_elephant.whos_your_linked_elephant.nil?
+                  current_elephant = current_elephant.whos_your_linked_elephant
+                end
+                ousted << current_elephant.mouth_holds
+              end
+            end
+            ousted.join(" ")
+          end

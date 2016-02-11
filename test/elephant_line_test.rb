@@ -22,7 +22,7 @@ end
 
 #PREPEND TEST
 def test_it_can_add_an_elephant_to_the_head_of_the_line_and_count_new_noises_added
-  skip
+  # skip
   line_of_phants = ElephantLine.new("tee")
   assert_equal 1, line_of_phants.prepend("shmoop")
   assert_equal "shmoop", line_of_phants.head_elephant.mouth_holds
@@ -30,7 +30,7 @@ end
 
 #FIND TAIL TEST
 def test_it_can_find_the_last_elephant
-  skip
+  # skip
   line_of_phants = ElephantLine.new("one")
   line_of_phants.append("two")
 
@@ -49,7 +49,7 @@ end
 
 #INCLUDES? TEST
   def test_it_gives_back_true_or_false_whether_the_supplied_value_is_in_the_list
-    skip
+    # skip
     line_of_phants = ElephantLine.new("one")
     line_of_phants.append("two")
     line_of_phants.append("three")
@@ -59,23 +59,18 @@ end
 
 #POP
   def test_it_can_pop_one_or_more_elements_from_the_end_of_the_list
-    skip
+    # skip
     line_of_phants = ElephantLine.new("uno")
     line_of_phants.append("dos")
-    line_of_phants.append("tres quatro cinco ses")
+    line_of_phants.append("tres")
 
     # assert_equal "uno dos tres", line_of_phants.show_all_elephants
-    assert_equal "cinco ses", line_of_phants.remove(2)
+    assert_equal "dos tres", line_of_phants.remove(2)
   end
 
 #INSERT
   def test_it_can_insert_one_or_more_elements_at_an_arbitrary_position_in_the_list
-    skip
     list = ElephantLine.new("one two four")
-    # line_of_phants.append("two")
-    #
-    # assert_equal "one, two", line_of_phants.show_all_elephants
-
     assert_equal "one two three four", list.let_me_in_right_there(2, "three")
   end
 
