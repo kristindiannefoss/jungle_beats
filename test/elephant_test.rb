@@ -7,9 +7,9 @@ require '../lib/elephant'
 class ElephantTest < Minitest::Test
 
   def test_a_new_instance_of_Elephant_can_be_created
-      watering_hole_line = Elephant.new("bop")
+      elephant = Elephant.new("bop")
 
-      assert_equal Elephant, watering_hole_line.class
+      assert_equal Elephant, elephant.class
     end
 
   def test_it_can_take_a_value_in_its_mouth_to_make_a_sound

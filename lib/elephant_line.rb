@@ -5,8 +5,6 @@ class ElephantLine
   attr_accessor :head_elephant
 
   def initialize(value)
-    @find_tail_elephant
-    @show_all_elephants
     @count = 0
     @empty = empty?
     value.split.each do |word|
@@ -26,13 +24,7 @@ class ElephantLine
     if @head_elephant.nil?
       @head_elephant = Elephant.new(value)
     else
-      # binding.pry
-      current_elephant = @head_elephant
-      # current_elephant.find_tail_elephant
-      until current_elephant.whos_your_linked_elephant.nil?
-        current_elephant = current_elephant.whos_your_linked_elephant
-      end
-      current_elephant.whos_your_linked_elephant = Elephant.new(value)
+      find_tail_elephant.whos_your_linked_elephant = Elephant.new(value)
     end
   end
 
@@ -96,13 +88,20 @@ class ElephantLine
     if empty?
       "cannot oust an elephant from a list of zero elephants"
     else
-      current_elephant = @head_elephant
-      (amount).times do
-          @find_tail_elephant
+      amount.times do
+        current_elephant = @head_elephant
+        until current_elephant.whos_your_linked_elephant.whos_your_linked_elephant == nil
           current_elephant = current_elephant.whos_your_linked_elephant
-          ousted << current_elephant.mouth_holds
-          end
-        # ousted << current_elephant.mouth_holds
+        end
+        ousted << current_elephant.whos_your_linked_elephant.mouth_holds
+        current_elephant.whos_your_linked_elephant = nil
+      end
+      # (amount).times do
+      #   @find_tail_elephant
+      #   current_elephant = current_elephant.whos_your_linked_elephant
+      #   ousted << current_elephant.mouth_holds
+      # end
+      #   # ousted << current_elephant.mouth_holds
     end
     ousted.join(" ")
   end
@@ -112,6 +111,18 @@ class ElephantLine
   end
 
   def counting_phants
+    count = 0
+    if @head_elephant == nil?
+      count = 0
+    else
+      current_elephant = @head_elephant
+      until current_elephant.whos_your_linked_elephant == nil
+        count += 1
+        current_elephant = current_elephant.whos_your_linked_elephant
+      end
+    end
+    count
+    
 
   end
 end

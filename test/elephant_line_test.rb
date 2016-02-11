@@ -26,6 +26,7 @@ def test_it_can_add_an_elephant_to_the_head_of_the_line_and_count_new_noises_add
   line_of_phants = ElephantLine.new("tee")
   assert_equal 1, line_of_phants.prepend("shmoop")
   assert_equal "shmoop", line_of_phants.head_elephant.mouth_holds
+  assert_equal "tee", line_of_phants.head_elephant.whos_your_linked_elephant.mouth_holds
 end
 
 #FIND TAIL TEST
@@ -66,11 +67,13 @@ end
 
     # assert_equal "uno dos tres", line_of_phants.show_all_elephants
     assert_equal "dos tres", line_of_phants.remove(2)
+    refute  "tres" == line_of_phants.find_tail_elephant.mouth_holds
   end
 
 #INSERT
   def test_it_can_insert_one_or_more_elements_at_an_arbitrary_position_in_the_list
     list = ElephantLine.new("one two four")
+
     assert_equal "one two three four", list.let_me_in_right_there(2, "three")
   end
 
