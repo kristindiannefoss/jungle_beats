@@ -1,5 +1,6 @@
 require './lib/node'
 require 'pry'
+
 class List
   attr_reader :head, :next_node, :data
   def initialize(data)
@@ -57,8 +58,16 @@ class List
   end
 
 
-  def includes?(data)
-    all.includes?(data)
+  def include?(data)
+    current_node = @head
+    while current_node.data != data
+      current_node = current_node.next_node
+      if current_node.data == data
+      return true
+    else
+      return false
+    end
+    end
   end
 
   def insert(number, data)
@@ -72,7 +81,7 @@ class List
     current_node.next_node.next_node = temp_node
   end
 
-  def index
-
-  end
+  # def index
+  #
+  # end
 end

@@ -50,7 +50,6 @@ class ListTest < Minitest::Test
   end
 
   def test_it_can_insert_one_or_more_elements_at_an_arbitrary_position_in_the_list
-    # skip
     new_list = List.new("start")
     new_list.append("one")
     new_list.append("two")
@@ -61,7 +60,14 @@ class ListTest < Minitest::Test
   end
 
   def test_it_can_search_for_a_word_with_includes?
-    
+    # skip
+    new_list = List.new("start")
+    new_list.append("one")
+    new_list.append("two")
+    new_list.append("three")
+
+    assert_equal true, new_list.include?("one")
+    assert_equal false, new_list.include?("nope")
   end
 end
 
