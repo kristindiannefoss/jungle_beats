@@ -8,7 +8,6 @@ class List
     @beats = []
     @string = ""
     @result = nil
-    @result2 = nil
     @popped = []
   end
 
@@ -23,29 +22,17 @@ class List
   def split_beats(beat_chunk)
     beat_chunk.split.each do |beat_chunk|
       @beats << beat_chunk
-      # binding.pry
     end
     @beats
   end
 
   def append(data)
-      if @head.nil?
-        @head = Node.new(data)
-      else
-        tail.next_node = Node.new(data)
-      end
+    if @head.nil?
+      @head = Node.new(data)
+    else
+      tail.next_node = Node.new(data)
+    end
   end
-
-  # def append(data)
-  #   split_beats(data).each do
-  #       new_node = Node.new(data)
-  #     if @head.nil?
-  #       @head = new_node
-  #     else
-  #       tail.next_node = new_node
-  #     end
-  #   end
-  # end
 
   def all
     current_node = @head
@@ -72,7 +59,6 @@ class List
     @head = new_node
     split_beats(data).count
   end
-
 
   def include?(data)
     current_node = @head
@@ -108,28 +94,6 @@ class List
     temp_node.data
   end
 
-  # def pop(number)
-  #   @popped = []
-  #   number.times do
-  #   current_node = @head
-  #     until current_node.next_node.next_node.nil?
-  #       current_node = current_node.next_node
-  #     end
-  #     temp_node = current_node.next_node
-  #     current_node.next_node = nil
-  #     @popped << temp_node.data
-  #   end
-  #   @popped.reverse.join(" ")
-  # end
-
-  # def pop(number)
-  #   popped = ""
-  #   number.times do
-  #     popped << delete_one + " "
-  #   end
-  #   popped.strip #.join(" ")
-
-  # end
   def pop(number)
     if number > count - 1
         "you are trying to pop more nodes than the list contains"

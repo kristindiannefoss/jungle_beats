@@ -97,7 +97,6 @@ class ListTest < Minitest::Test
   end
 
   def test_it_can_find_one_or_more_elements_based_on_arbitrary_positions_in_the_list
-    # skip
     new_list = List.new("start")
     new_list.append("one")
     new_list.append("two")
@@ -111,6 +110,3 @@ class ListTest < Minitest::Test
     assert_equal "two three four five six", new_list.find(1, 5)
   end
 end
-
-# find one or more elements based on arbitrary positions in the list. The first parameter indicates the first position to return and the second parameter specifies how many elements to return.
-# all return all elements in the linked list in order
