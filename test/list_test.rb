@@ -60,7 +60,6 @@ class ListTest < Minitest::Test
   end
 
   def test_it_can_search_for_a_word_with_includes?
-    # skip
     new_list = List.new("start")
     new_list.append("one")
     new_list.append("two")
@@ -69,9 +68,20 @@ class ListTest < Minitest::Test
     assert_equal true, new_list.include?("one")
     assert_equal false, new_list.include?("nope")
   end
+
+  def test_it_can_pop_off_a_number_of_elements_from_the_list
+    # skip
+    new_list = List.new("start")
+    new_list.append("one")
+    new_list.append("two")
+    new_list.append("three")
+
+    # assert_equal "three", new_list.pop(1)
+    assert_equal "two three", new_list.pop(2)
+    # assert_equal "three", new_list.delete_one
+  end
 end
 
-# includes? gives back true or false whether the supplied value is in the list
 # pop one or more elements from the end of the list
 # count the number of elements in the list
 # find one or more elements based on arbitrary positions in the list. The first parameter indicates the first position to return and the second parameter specifies how many elements to return.

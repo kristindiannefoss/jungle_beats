@@ -25,12 +25,23 @@ class List
   end
 
   def append(data)
-    if @head.nil?
-      @head = Node.new(data)
-    else
-      tail.next_node = Node.new(data)
-    end
+      if @head.nil?
+        @head = Node.new(data)
+      else
+        tail.next_node = Node.new(data)
+      end
   end
+
+  # def append(data)
+  #   split_beats(data).each do
+  #       new_node = Node.new(data)
+  #     if @head.nil?
+  #       @head = new_node
+  #     else
+  #       tail.next_node = new_node
+  #     end
+  #   end
+  # end
 
   def all
     temp_node = @head
@@ -63,10 +74,10 @@ class List
     while current_node.data != data
       current_node = current_node.next_node
       if current_node.data == data
-      return true
-    else
-      return false
-    end
+        return true
+      else
+        return false
+      end
     end
   end
 
@@ -81,7 +92,38 @@ class List
     current_node.next_node.next_node = temp_node
   end
 
-  # def index
-  #
-  # end
+  def pop(number)
+    popped = []
+    number.times do
+      popped << delete_one
+    end
+    popped.reverse.join(" ")
+  end
+    # current_node.next_node.next_node = temp_node
+
+    # n.times do
+    #
+    # current_node = @head
+    # until current_node.next_node.nil?
+    #   current_node = current_node.next_node
+    #   current_node
+    #   # binding.pry
+    #   # tail
+    #   current_node.next_node = nil
+    #     end
+    #     # if current_node.next_node == tail
+    #       # binding.pry
+    #   end
+    #   current_node.data
+    #   # tail
+
+  def delete_one
+    current_node = @head
+      until current_node.next_node.next_node.nil?
+        current_node = current_node.next_node
+      end
+      temp_node = current_node.next_node
+      current_node.next_node = nil
+      temp_node.data
+  end
 end
