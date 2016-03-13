@@ -29,6 +29,14 @@ class ListTest < Minitest::Test
     assert_equal "start one two three", new_list.all
   end
 
+  def test_it_can_count_nodes_in_list
+    new_list = List.new("start")
+    new_list.append("one")
+    new_list.append("two")
+    new_list.append("three")
+    assert_equal 4, new_list.count
+  end
+
   def test_it_can_append_data_onto_the_end_of_the_list
     new_list = List.new("start")
     new_list.append("one")
@@ -45,7 +53,7 @@ class ListTest < Minitest::Test
     new_list.append("one")
     new_list.append("two")
     new_list.append("three")
-    new_list.prepend("four")
+    assert_equal 1, new_list.prepend("four")
     assert_equal "four", new_list.head.data
   end
 
@@ -55,8 +63,7 @@ class ListTest < Minitest::Test
     new_list.append("two")
     new_list.append("three")
 
-    new_list.insert(3, "four")
-    assert_equal "start one two four three", new_list.all
+    assert_equal "start one two four three", new_list.insert(3, "four")
   end
 
   def test_it_can_search_for_a_word_with_includes?
@@ -80,9 +87,20 @@ class ListTest < Minitest::Test
     assert_equal "two three", new_list.pop(2)
     # assert_equal "three", new_list.delete_one
   end
+
+  def test_it_can_find_one_or_more_elements_based_on_arbitrary_positions_in_the_list
+    skip
+    new_list = List.new("start")
+    new_list.append("one")
+    new_list.append("two")
+    new_list.append("three")
+    new_list.append("four")
+    new_list.append("five")
+    new_list.append("six")
+
+    assert_equal "three four", new_list.find(3, 2)
+  end
 end
 
-# pop one or more elements from the end of the list
-# count the number of elements in the list
 # find one or more elements based on arbitrary positions in the list. The first parameter indicates the first position to return and the second parameter specifies how many elements to return.
 # all return all elements in the linked list in order

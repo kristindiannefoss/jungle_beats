@@ -6,6 +6,7 @@ class List
   def initialize(data)
     @head = Node.new(data)
     @beats = []
+    @store = ""
   end
 
   def tail
@@ -66,6 +67,7 @@ class List
     new_node = Node.new(data)
     new_node.next_node = @head
     @head = new_node
+    split_beats(data).count
   end
 
 
@@ -90,32 +92,69 @@ class List
     temp_node = current_node.next_node
     current_node.next_node = Node.new(data)
     current_node.next_node.next_node = temp_node
+    all
   end
+
+  # def pop(number)
+  #   if number == 1
+  #     delete_one
+  #   else
+  #     # number.times do
+  #     #   delete_one
+  #     # end
+  #   end
+  # end
+  # def pop(number)
+  #   popped = (number).times do
+  #       all.delete_one
+  #     end
+  #     # binding.pry
+  #     # @store + popped.to_s
+  # end
+
+  # def pop(number)
+  #   popped = number.down_to(1) do
+  #     current_node = @head
+  #       until current_node.next_node.next_node.nil?
+  #         current_node = current_node.next_node
+  #       end
+  #       temp_node = current_node.next_node
+  #       current_node.next_node = nil
+  #       temp_node.data
+  #     end
+  #     # binding.pry
+  #     @store + popped.to_s
+  # end
 
   def pop(number)
-    popped = []
+    popped = ""
     number.times do
-      popped << delete_one
+      popped << delete_one + " "
     end
-    popped.reverse.join(" ")
+    popped.strip #.join(" ")
   end
-    # current_node.next_node.next_node = temp_node
 
-    # n.times do
-    #
-    # current_node = @head
-    # until current_node.next_node.nil?
-    #   current_node = current_node.next_node
-    #   current_node
-    #   # binding.pry
-    #   # tail
-    #   current_node.next_node = nil
-    #     end
-    #     # if current_node.next_node == tail
-    #       # binding.pry
-    #   end
-    #   current_node.data
-    #   # tail
+
+  def find(index, quantity)
+
+  end
+
+
+  # def pop(number)
+  #   string = ""
+  #   beats = number.times do
+  #     string + delete_one
+  #   end
+  #   binding.pry
+  #   # popped.reverse.join(" ")
+  #   beats
+  # end
+
+  # def pop(number)
+  #   @store = number.downto(1) do
+  #     delete_one
+  #   end
+  # end
 
   def delete_one
     current_node = @head
