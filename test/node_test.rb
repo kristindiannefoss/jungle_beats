@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/list'
+require './lib/jungle_beats'
 require './lib/node'
 
 class NodeTest < Minitest::Test
@@ -16,6 +16,6 @@ class NodeTest < Minitest::Test
 
   def test_it_is_instantiated_with_link_set_to_nil
     new_node = Node.new("one", nil)
-    assert_equal nil, new_node.next
+    assert_equal nil, new_node.next_node
   end
 end
