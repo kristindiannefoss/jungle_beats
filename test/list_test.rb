@@ -99,7 +99,8 @@ class ListTest < Minitest::Test
     new_list.append("six")
 
     assert_equal "four five", new_list.find(3, 2)
-    assert_equal "one two three", new_list.find(1, 3)
+    assert_equal "two three four", new_list.find(1, 3)
+    assert_equal "two three four five six", new_list.find(1, 5)
   end
 end
 

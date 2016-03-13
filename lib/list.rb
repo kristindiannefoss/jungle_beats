@@ -9,6 +9,7 @@ class List
     @string = ""
     @result = nil
     @result2 = nil
+    @hold = []
   end
 
   def tail
@@ -110,12 +111,13 @@ class List
     current_node = @head
     number.times do
         current_node = current_node.next_node
-      quantity.times do
-            @result = @string + current_node.next_node.data + " " + current_node.next_node.next_node.data
-            # binding.pry
-            end
-          end
-    @result
+      end
+    @result = ""
+    quantity.times do
+      current_node = current_node.next_node
+      @result += ("#{current_node.data}"+ " ")
+      end
+    @result.strip
   end
 
   def delete_one
@@ -126,5 +128,9 @@ class List
       temp_node = current_node.next_node
       current_node.next_node = nil
       temp_node.data
+  end
+
+  def move_links
+    current_node = current_node.next_node
   end
 end
