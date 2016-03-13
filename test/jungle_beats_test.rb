@@ -77,7 +77,6 @@ class JungleBeatsTest < Minitest::Test
   end
 
   def test_it_can_pop_off_a_number_of_elements_from_the_list
-    # skip
     new_list = JungleBeats.new("start")
     new_list.append("tee")
     new_list.append("deep")
