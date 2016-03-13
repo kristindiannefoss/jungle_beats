@@ -8,6 +8,7 @@ class JungleBeats
     @accepted = "tee dee deep beep bop boop la na"
     @beats = []
     @current_node = current_node
+    @tail = nil
   end
 
   def validate(beats)
@@ -19,7 +20,7 @@ class JungleBeats
     end
   end
 
-  def tail
+  def find_tail
     @current_node = @head
       until @current_node.next_node.nil?
         move_one
@@ -37,7 +38,7 @@ class JungleBeats
     if @head.nil?
       @head = Node.new(new_beats)
     else
-      tail.next_node = Node.new(new_beats)
+      find_tail.next_node = Node.new(new_beats)
     end
   end
 
@@ -107,7 +108,7 @@ class JungleBeats
 
   def pop(number)
     if number > count - 1
-        "you are trying to pop more nodes than the list contains"
+      "you are trying to pop more nodes than the list contains"
     else
       popped = []
       number.times do

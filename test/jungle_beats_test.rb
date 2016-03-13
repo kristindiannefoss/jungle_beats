@@ -18,7 +18,7 @@ class JungleBeatsTest < Minitest::Test
     new_list = JungleBeats.new("start")
     new_list.append("tee")
     new_list.append("beep")
-    assert_equal "beep", new_list.tail.data
+    assert_equal "beep", new_list.find_tail.data
   end
 
   def test_it_can_list_all
