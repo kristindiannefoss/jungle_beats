@@ -2,21 +2,16 @@ require './lib/node'
 require 'pry'
 
 class JungleBeats
-  attr_reader :head, :next_node, :data
+  attr_reader :head, :next_node, :data, :current_node
   def initialize(data)
     @head = Node.new(data)
     @accepted = "tee dee deep beep bop boop la na"
     @beats = []
-  end
-
-  def play
-    'say -r 500 -v Boing #{all}'
+    @current_node = current_node
   end
 
   def validate(beats)
-    @proceed = beats.split.select do |beat|
-      @accepted.include?(beats)
-      end
+    @proceed = beats.split.select {|beat| @accepted.include?(beats)}
       if @proceed.count < 1
         ""
       else
@@ -25,17 +20,15 @@ class JungleBeats
   end
 
   def tail
-    current_node = @head
-      until current_node.next_node.nil?
-        current_node = current_node.next_node
+    @current_node = @head
+      until @current_node.next_node.nil?
+        move_one
       end
-      current_node
+      @current_node
   end
 
   def split_beats(beat_chunk)
-    beat_chunk.split.each do |beat_chunk|
-      @beats << beat_chunk
-    end
+    beat_chunk.split.each {|beat_chunk| @beats << beat_chunk}
     @beats
   end
 
@@ -49,20 +42,20 @@ class JungleBeats
   end
 
   def all
-    current_node = @head
+    @current_node = @head
     until current_node.nil?
-      @beats << current_node.data
-      current_node = current_node.next_node
+      @beats << @current_node.data
+      move_one
     end
     @beats.join(" ").strip
   end
 
   def count
-    current_node = @head
+    @current_node = @head
     iterator_count = 1
-    until current_node.next_node.nil?
+    until @current_node.next_node.nil?
       iterator_count += 1
-      current_node = current_node.next_node
+      move_one
     end
     iterator_count
   end
@@ -76,10 +69,10 @@ class JungleBeats
   end
 
   def include?(data)
-    current_node = @head
+    @current_node = @head
     while current_node.data != data
-      current_node = current_node.next_node
-      if current_node.data == data
+      move_one
+      if @current_node.data == data
         return true
       else
         return false
@@ -93,24 +86,22 @@ class JungleBeats
     else
     new_beats = validate(data).strip
     i = number - 1
-    current_node = @head
-    i.times do
-    current_node = current_node.next_node
-      end
-    temp_node = current_node.next_node
-    current_node.next_node = Node.new(new_beats)
-    current_node.next_node.next_node = temp_node
+    @current_node = @head
+    i.times {move_one}
+    temp_node = @current_node.next_node
+    @current_node.next_node = Node.new(new_beats)
+    @current_node.next_node.next_node = temp_node
     all
     end
   end
 
   def delete_one
-  current_node = @head
-    until current_node.next_node.next_node.nil?
-      current_node = current_node.next_node
+  @current_node = @head
+    until @current_node.next_node.next_node.nil?
+      move_one
     end
-    temp_node = current_node.next_node
-    current_node.next_node = nil
+    temp_node = @current_node.next_node
+    @current_node.next_node = nil
     temp_node.data
   end
 
@@ -128,15 +119,17 @@ class JungleBeats
 
   def find(number, quantity)
     @string = ""
-    current_node = @head
-    number.times do
-        current_node = current_node.next_node
-      end
+    @current_node = @head
+    number.times {@current_node = @current_node.next_node}
     @result = ""
     quantity.times do
-      current_node = current_node.next_node
+      move_one
       @result += ("#{current_node.data}"+ " ")
       end
     @result.strip
+  end
+
+  def move_one
+    @current_node = @current_node.next_node
   end
 end
