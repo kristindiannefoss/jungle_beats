@@ -141,4 +141,16 @@ class JungleBeatsTest < Minitest::Test
 
     assert_equal "start tee deep dee", new_list.insert(1, "nope")
   end
+
+  def test_it_can_play_beats
+    new_list = JungleBeats.new("start")
+    new_list.append("tee")
+    new_list.append("deep")
+    new_list.append("dee")
+    new_list.append("bop")
+    new_list.append("la")
+    new_list.append("na")
+
+    new_list.play
+  end
 end

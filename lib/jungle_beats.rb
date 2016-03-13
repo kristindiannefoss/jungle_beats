@@ -133,4 +133,12 @@ class JungleBeats
   def move_one
     @current_node = @current_node.next_node
   end
+
+  def play
+    `say -r 500 -v Boing #{all}`
+  end
 end
+
+new_list = JungleBeats.new("bop la na tee bop la na tee bop la na tee")
+
+new_list.play
