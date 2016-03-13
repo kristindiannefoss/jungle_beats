@@ -6,7 +6,9 @@ class List
   def initialize(data)
     @head = Node.new(data)
     @beats = []
-    @store = ""
+    @string = ""
+    @result = nil
+    @result2 = nil
   end
 
   def tail
@@ -95,37 +97,6 @@ class List
     all
   end
 
-  # def pop(number)
-  #   if number == 1
-  #     delete_one
-  #   else
-  #     # number.times do
-  #     #   delete_one
-  #     # end
-  #   end
-  # end
-  # def pop(number)
-  #   popped = (number).times do
-  #       all.delete_one
-  #     end
-  #     # binding.pry
-  #     # @store + popped.to_s
-  # end
-
-  # def pop(number)
-  #   popped = number.down_to(1) do
-  #     current_node = @head
-  #       until current_node.next_node.next_node.nil?
-  #         current_node = current_node.next_node
-  #       end
-  #       temp_node = current_node.next_node
-  #       current_node.next_node = nil
-  #       temp_node.data
-  #     end
-  #     # binding.pry
-  #     @store + popped.to_s
-  # end
-
   def pop(number)
     popped = ""
     number.times do
@@ -134,27 +105,18 @@ class List
     popped.strip #.join(" ")
   end
 
-
-  def find(index, quantity)
-
+  def find(number, quantity)
+    @string = ""
+    current_node = @head
+    number.times do
+        current_node = current_node.next_node
+      quantity.times do
+            @result = @string + current_node.next_node.data + " " + current_node.next_node.next_node.data
+            # binding.pry
+            end
+          end
+    @result
   end
-
-
-  # def pop(number)
-  #   string = ""
-  #   beats = number.times do
-  #     string + delete_one
-  #   end
-  #   binding.pry
-  #   # popped.reverse.join(" ")
-  #   beats
-  # end
-
-  # def pop(number)
-  #   @store = number.downto(1) do
-  #     delete_one
-  #   end
-  # end
 
   def delete_one
     current_node = @head

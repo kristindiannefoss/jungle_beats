@@ -77,7 +77,7 @@ class ListTest < Minitest::Test
   end
 
   def test_it_can_pop_off_a_number_of_elements_from_the_list
-    # skip
+    skip
     new_list = List.new("start")
     new_list.append("one")
     new_list.append("two")
@@ -89,7 +89,7 @@ class ListTest < Minitest::Test
   end
 
   def test_it_can_find_one_or_more_elements_based_on_arbitrary_positions_in_the_list
-    skip
+    # skip
     new_list = List.new("start")
     new_list.append("one")
     new_list.append("two")
@@ -98,7 +98,8 @@ class ListTest < Minitest::Test
     new_list.append("five")
     new_list.append("six")
 
-    assert_equal "three four", new_list.find(3, 2)
+    assert_equal "four five", new_list.find(3, 2)
+    assert_equal "one two three", new_list.find(1, 3)
   end
 end
 
