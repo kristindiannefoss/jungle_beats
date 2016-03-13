@@ -5,15 +5,23 @@ class List
   attr_reader :head, :next_node, :data
   def initialize(data)
     @head = Node.new(data)
-    @accepted = "tee dee deep bop boop la na"
+    @accepted = "tee dee deep beep bop boop la na"
     @beats = []
+  end
+
+  def play
+    'say -r 500 -v Boing #{all}'
   end
 
   def validate(beats)
     @proceed = beats.split.select do |beat|
       @accepted.include?(beats)
       end
+      if @proceed.count < 1
+        ""
+      else
       @proceed.join(" ")
+    end
   end
 
   def tail
@@ -32,10 +40,11 @@ class List
   end
 
   def append(data)
+    new_beats = validate(data)
     if @head.nil?
-      @head = Node.new(data)
+      @head = Node.new(new_beats)
     else
-      tail.next_node = Node.new(data)
+      tail.next_node = Node.new(new_beats)
     end
   end
 
@@ -45,7 +54,7 @@ class List
       @beats << current_node.data
       current_node = current_node.next_node
     end
-    @beats.join(" ")
+    @beats.join(" ").strip
   end
 
   def count
@@ -59,10 +68,11 @@ class List
   end
 
   def prepend(data)
-    new_node = Node.new(data)
+    new_beats = validate(data)
+    new_node = Node.new(new_beats)
     new_node.next_node = @head
     @head = new_node
-    split_beats(data).count
+    split_beats(new_beats).count
   end
 
   def include?(data)
@@ -78,15 +88,20 @@ class List
   end
 
   def insert(number, data)
+    if validate(data) == ""
+      all
+    else
+    new_beats = validate(data).strip
     i = number - 1
     current_node = @head
     i.times do
     current_node = current_node.next_node
       end
     temp_node = current_node.next_node
-    current_node.next_node = Node.new(data)
+    current_node.next_node = Node.new(new_beats)
     current_node.next_node.next_node = temp_node
     all
+    end
   end
 
   def delete_one
@@ -123,9 +138,5 @@ class List
       @result += ("#{current_node.data}"+ " ")
       end
     @result.strip
-  end
-
-  def move_links
-    current_node = current_node.next_node
   end
 end
