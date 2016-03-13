@@ -77,15 +77,23 @@ class ListTest < Minitest::Test
   end
 
   def test_it_can_pop_off_a_number_of_elements_from_the_list
-    skip
+    # skip
     new_list = List.new("start")
     new_list.append("one")
     new_list.append("two")
     new_list.append("three")
-
-    # assert_equal "three", new_list.pop(1)
-    assert_equal "two three", new_list.pop(2)
-    # assert_equal "three", new_list.delete_one
+    new_list.append("four")
+    new_list.append("five")
+    new_list.append("six")
+    new_list.append("one")
+    new_list.append("two")
+    new_list.append("three")
+    new_list.append("four")
+    new_list.append("five")
+    new_list.append("six")
+    assert_equal "six", new_list.pop(1)
+    assert_equal "four five", new_list.pop(2)
+    assert_equal "you are trying to pop more nodes than the list contains", new_list.pop(12)
   end
 
   def test_it_can_find_one_or_more_elements_based_on_arbitrary_positions_in_the_list

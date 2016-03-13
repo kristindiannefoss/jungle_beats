@@ -9,15 +9,15 @@ class List
     @string = ""
     @result = nil
     @result2 = nil
-    @hold = []
+    @popped = []
   end
 
   def tail
-    temp_node = @head
-      until temp_node.next_node.nil?
-        temp_node = temp_node.next_node
+    current_node = @head
+      until current_node.next_node.nil?
+        current_node = current_node.next_node
       end
-      temp_node
+      current_node
   end
 
   def split_beats(beat_chunk)
@@ -48,20 +48,20 @@ class List
   # end
 
   def all
-    temp_node = @head
-    until temp_node.nil?
-      @beats << temp_node.data
-      temp_node = temp_node.next_node
+    current_node = @head
+    until current_node.nil?
+      @beats << current_node.data
+      current_node = current_node.next_node
     end
     @beats.join(" ")
   end
 
   def count
-    temp_node = @head
+    current_node = @head
     iterator_count = 1
-    until temp_node.next_node.nil?
+    until current_node.next_node.nil?
       iterator_count += 1
-      temp_node = temp_node.next_node
+      current_node = current_node.next_node
     end
     iterator_count
   end
@@ -98,12 +98,48 @@ class List
     all
   end
 
-  def pop(number)
-    popped = ""
-    number.times do
-      popped << delete_one + " "
+  def delete_one
+  current_node = @head
+    until current_node.next_node.next_node.nil?
+      current_node = current_node.next_node
     end
-    popped.strip #.join(" ")
+    temp_node = current_node.next_node
+    current_node.next_node = nil
+    temp_node.data
+  end
+
+  # def pop(number)
+  #   @popped = []
+  #   number.times do
+  #   current_node = @head
+  #     until current_node.next_node.next_node.nil?
+  #       current_node = current_node.next_node
+  #     end
+  #     temp_node = current_node.next_node
+  #     current_node.next_node = nil
+  #     @popped << temp_node.data
+  #   end
+  #   @popped.reverse.join(" ")
+  # end
+
+  # def pop(number)
+  #   popped = ""
+  #   number.times do
+  #     popped << delete_one + " "
+  #   end
+  #   popped.strip #.join(" ")
+
+  # end
+  def pop(number)
+    if number > count - 1
+        "you are trying to pop more nodes than the list contains"
+    else
+      popped = []
+      number.times do
+        popped << delete_one
+      end
+      popped.reverse.join(" ")
+    end
   end
 
   def find(number, quantity)
@@ -118,16 +154,6 @@ class List
       @result += ("#{current_node.data}"+ " ")
       end
     @result.strip
-  end
-
-  def delete_one
-    current_node = @head
-      until current_node.next_node.next_node.nil?
-        current_node = current_node.next_node
-      end
-      temp_node = current_node.next_node
-      current_node.next_node = nil
-      temp_node.data
   end
 
   def move_links
