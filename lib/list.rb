@@ -5,10 +5,15 @@ class List
   attr_reader :head, :next_node, :data
   def initialize(data)
     @head = Node.new(data)
+    @accepted = "tee dee deep bop boop la na"
     @beats = []
-    @string = ""
-    @result = nil
-    @popped = []
+  end
+
+  def validate(beats)
+    @proceed = beats.split.select do |beat|
+      @accepted.include?(beats)
+      end
+      @proceed.join(" ")
   end
 
   def tail

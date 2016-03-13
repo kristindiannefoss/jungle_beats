@@ -109,4 +109,11 @@ class ListTest < Minitest::Test
     assert_equal "two three four", new_list.find(1, 3)
     assert_equal "two three four five six", new_list.find(1, 5)
   end
+
+  def test_it_can_validate_and_append_beats_to_a_list
+    beats = List.new("beat")
+    beats.append("new")
+    assert_equal "beat new", beats.all
+
+  end
 end
