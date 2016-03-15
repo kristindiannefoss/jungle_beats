@@ -2,78 +2,83 @@ require './lib/node'
 require 'pry'
 
 class JungleBeats
-  attr_reader :head, :next_node, :data, :current_node
-  def initialize(data)
-    @head = Node.new(data)
-    @accepted = "tee dee deep beep bop boop la na"
-    @beats = []
-    @current_node = current_node
-    @tail = nil
+  attr_reader :head, :next_node, :beats, :tail
+  ACCEPTED = ["tee", "dee", "deep", "beep", "bop", "boop", "la", "na"]
+
+  def initialize(beats)
+    @head = Node.new(beats)
   end
 
   def validate(beats)
-    @proceed = beats.split.select {|beat| @accepted.include?(beats)}
-      if @proceed.count < 1
-        ""
-      else
-      @proceed.join(" ")
-    end
+    beats.split.select {|beat| ACCEPTED.include?(beat)}
   end
 
-  def find_tail
-    @current_node = @head
-      until @current_node.next_node.nil?
-        move_one
+  def make_new_node(beats)
+    node_pod = []
+    node_seeds = validate(beats)
+    node_seeds.each do |beat|
+                  node_pod << Node.new(beat)
+                end
+    node_pod
+  end
+
+  def tail
+    current_node = @head
+      until current_node.next_node.nil?
+        current_node = current_node.next_node
       end
-      @current_node
+        current_node
   end
 
   def split_beats(beat_chunk)
-    beat_chunk.split.each {|beat_chunk| @beats << beat_chunk}
-    @beats
+    validate(beat_chunk).split.each {|beat| beats << beat}
+    beats
   end
 
-  def append(data)
-    new_beats = validate(data)
-    if @head.nil?
-      @head = Node.new(new_beats)
-    else
-      find_tail.next_node = Node.new(new_beats)
+  def append(beats)
+      make_new_node(beats).each do |node|
+      if @head.nil?
+        @head = node
+      else
+        tail.next_node = node
+      end
     end
   end
 
   def all
-    @current_node = @head
+    beats = []
+    current_node = @head
     until current_node.nil?
-      @beats << @current_node.data
-      move_one
+      beats << current_node.beats
+      current_node = current_node.next_node
     end
-    @beats.join(" ").strip
+    beats.compact.join(" ").strip
   end
 
   def count
-    @current_node = @head
+    current_node = @head
     iterator_count = 1
-    until @current_node.next_node.nil?
-      iterator_count += 1
-      move_one
-    end
+      until current_node.next_node.nil?
+        iterator_count += 1
+        current_node = current_node.next_node
+      end
     iterator_count
   end
 
-  def prepend(data)
-    new_beats = validate(data)
-    new_node = Node.new(new_beats)
-    new_node.next_node = @head
-    @head = new_node
-    split_beats(new_beats).count
+  def prepend(beats)
+      nodes = make_new_node(beats)
+      nodes.each do |node|
+      node.next_node = @head
+      @head = node
+    end
+      nodes.count
   end
 
-  def include?(data)
-    @current_node = @head
-    while current_node.data != data
-      move_one
-      if @current_node.data == data
+  def include?(beats)
+    current_node = @head
+    while current_node.beats != beats
+      current_node = current_node.next_node
+      if current_node.beats == beats
         return true
       else
         return false
@@ -81,29 +86,27 @@ class JungleBeats
     end
   end
 
-  def insert(number, data)
-    if validate(data) == ""
-      all
-    else
-    new_beats = validate(data).strip
-    i = number - 1
-    @current_node = @head
-    i.times {move_one}
-    temp_node = @current_node.next_node
-    @current_node.next_node = Node.new(new_beats)
-    @current_node.next_node.next_node = temp_node
-    all
+  def insert(number, beats)
+    nodes = make_new_node(beats)
+    nodes.each do |node|
+      i = number - 1
+      current_node = @head
+      i.times {current_node = current_node.next_node}
+      temp_node = current_node.next_node
+      current_node.next_node = node
+      node.next_node = temp_node
     end
+    all
   end
 
   def delete_one
-  @current_node = @head
-    until @current_node.next_node.next_node.nil?
-      move_one
+  current_node = @head
+    until current_node.next_node.next_node.nil?
+      current_node = current_node.next_node
     end
-    temp_node = @current_node.next_node
-    @current_node.next_node = nil
-    temp_node.data
+    temp_node = current_node.next_node
+    current_node.next_node = nil
+    temp_node.beats.split
   end
 
   def pop(number)
@@ -120,25 +123,24 @@ class JungleBeats
 
   def find(number, quantity)
     @string = ""
-    @current_node = @head
-    number.times {@current_node = @current_node.next_node}
+    current_node = @head
+    number.times {current_node = current_node.next_node}
     @result = ""
     quantity.times do
-      move_one
-      @result += ("#{current_node.data}"+ " ")
+      current_node = current_node.next_node
+      @result += ("#{current_node.beats}"+ " ")
       end
     @result.strip
   end
 
-  def move_one
-    @current_node = @current_node.next_node
-  end
-
   def play
     `say -r 500 -v Boing #{all}`
+    count
   end
 end
 
+if __FILE__ == $0
 new_list = JungleBeats.new("bop la na tee bop la na tee bop la na tee")
 
 new_list.play
+end
