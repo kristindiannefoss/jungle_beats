@@ -157,6 +157,8 @@ class JungleBeatsTest < Minitest::Test
     assert_equal "deep dee bop", result2
     result3 = new_list.find(1, 5)
     assert_equal "deep dee bop la na", result3
+    result4 = new_list.find(9, 3)
+    assert_equal "cannot find these nodes, list is too short", result4
   end
 
   def test_it_can_validate_and_append_beats_to_a_list

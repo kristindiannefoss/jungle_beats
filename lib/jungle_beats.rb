@@ -43,6 +43,7 @@ class JungleBeats
         tail.next_node = node
       end
     end
+    make_new_node(beats).count
   end
 
   def all
@@ -122,15 +123,19 @@ class JungleBeats
   end
 
   def find(number, quantity)
-    @string = ""
-    current_node = @head
-    number.times {current_node = current_node.next_node}
-    @result = ""
-    quantity.times do
-      current_node = current_node.next_node
-      @result += ("#{current_node.beats}"+ " ")
-      end
-    @result.strip
+    if number > count - quantity
+      "cannot find these nodes, list is too short"
+    else
+      @string = ""
+      current_node = @head
+      number.times {current_node = current_node.next_node}
+      @result = ""
+      quantity.times do
+        current_node = current_node.next_node
+        @result += ("#{current_node.beats}"+ " ")
+        end
+      @result.strip
+    end
   end
 
   def play
